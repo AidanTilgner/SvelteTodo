@@ -1,30 +1,28 @@
 <script>
-	export let name;
+  let todos = [];
+
+  let addTodo = () => {
+    todos = [...todos, ""];
+  };
+
+  let removeSelf = (index) => {
+    todos = [...todos.slice(0, index), ...todos.slice(index + 1)];
+  };
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<div class="todos">
+  {#each todos as todo, index}
+    <input
+      type="text"
+      class="todo"
+      bind:value={todos[index]}
+      placeholder="new todo"
+    />
+    <button on:click={() => removeSelf(index)}>remove</button>
+    <br />
+  {/each}
+</div>
+<button on:click={addTodo}>Add</button>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
